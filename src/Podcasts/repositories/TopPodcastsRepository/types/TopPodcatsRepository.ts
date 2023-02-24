@@ -1,4 +1,3 @@
-import { Feed } from "./Feed";
 import Podcast from "./Podcast";
 
 export default interface TopPodcatsRepository {

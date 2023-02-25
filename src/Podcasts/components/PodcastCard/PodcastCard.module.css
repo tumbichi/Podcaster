@@ -1,11 +1,11 @@
 .container {
   box-shadow: var(--shadow);
-  /* display: ; */
-  border: 1px solid #dddddd;
-  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-xs);
   text-align: center;
   margin-top: 4rem;
-  padding-bottom: 1rem;
+  padding: 0 0.75rem 1rem;
+  /* max-width: 196px; */
 }
 
 .imageContainer {

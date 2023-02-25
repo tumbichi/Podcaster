@@ -6,7 +6,9 @@ interface GetPodcastsResponseData {
   feed: Feed;
 }
 
-const fetchPodcastsWithLimitOf = async (limit = 100, genre = 1310): Promise<Podcast[]> => {
+const MUSIC_GENRE_ID = 1310;
+
+const fetchPodcastsWithLimitOf = async (limit = 100, genre = MUSIC_GENRE_ID): Promise<Podcast[]> => {
   try {
     const response = await httpClient.get<GetPodcastsResponseData>(`/limit=${limit}/genre=${genre}/json`);
 

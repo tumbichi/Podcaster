@@ -1,0 +1,11 @@
+.container {
+  padding: 0.5rem 0.625rem;
+  border-radius: var(--border-radius-xs);
+  border: 1px solid var(--border-color);
+  min-width: 14rem;
+}
+
+.container::placeholder {
+  color: var(--placeholder);
+}
+

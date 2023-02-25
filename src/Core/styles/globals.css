@@ -1,9 +1,12 @@
 :root {
   --max-width: 1100px;
-  --border-radius: 0.25rem;
+  --border-radius-xs: 0.25rem;
+  --border-radius-md: 0.50rem;
+  --border-color: #dddddd;
   --color: #2e2e2e;
   --background: #ffffff;
   --accent: #487eaa;
+  --placeholder: #9A9A9A;
   --shadow: -4px 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
@@ -13,10 +16,13 @@
   margin: 0;
 }
 
+:focus-visible {
+  outline: var(--accent) auto 1px;
+}
+
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
 }
 
 body {

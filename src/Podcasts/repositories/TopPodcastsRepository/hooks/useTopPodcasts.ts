@@ -8,8 +8,8 @@ const useTopPodcasts = () => {
     "top-podcasts",
     (): Promise<Podcast[]> => topPodcatsRepository.fetchPodcastsWithLimitOf(),
     {
-      revalidateOnMount: true, // Actualizar al montar el componente
-      refreshInterval: 24 * 60 * 60 * 1000, // Volver a validar la caché cada 24 horas
+      revalidateOnMount: true,
+      refreshInterval: 24 * 60 * 60 * 1000,
     }
   );
 

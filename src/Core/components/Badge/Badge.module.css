@@ -1,0 +1,9 @@
+.container {
+  display: inline;
+  font-weight: 600;
+  background-color: var(--accent);
+  color: var(--background);
+
+  border-radius: var(--border-radius-md);
+  padding: 0.125rem 0.3rem;
+}

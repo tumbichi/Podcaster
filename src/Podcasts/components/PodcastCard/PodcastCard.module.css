@@ -1,11 +1,8 @@
 .container {
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-xs);
   text-align: center;
   margin-top: 4rem;
   padding: 0 0.75rem 1rem;
-  /* max-width: 196px; */
+  cursor: pointer;
 }
 
 .imageContainer {

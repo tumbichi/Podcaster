@@ -10,13 +10,15 @@ const MUSIC_GENRE_ID = 1310;
 
 const fetchPodcastsWithLimitOf = async (limit = 100, genre = MUSIC_GENRE_ID): Promise<Podcast[]> => {
   try {
-    const response = await httpClient.get<GetPodcastsResponseData>(`/limit=${limit}/genre=${genre}/json`);
+    const response = await httpClient.get<GetPodcastsResponseData>(
+      `/us/rss/toppodcasts/limit=${limit}/genre=${genre}/json`
+    );
 
     return response.data.feed.entry;
   } catch (error) {
     const errorMessage = "Failed when fetch podcasts";
 
-    console.error(`[TopPodcastsRepository] ${errorMessage}`, error);
+    console.error(`[PodcastsRepository] ${errorMessage}`, error);
 
     throw new Error(errorMessage);
   }

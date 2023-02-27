@@ -2,11 +2,12 @@ import PodcastDetails from "@/Podcasts/features/PodcastDetails";
 import { useRouter } from "next/router";
 import React from "react";
 
-const PodcastDetailPage = (props) => {
+const PodcastDetailPage = () => {
   const router = useRouter();
 
-  
-  return <PodcastDetails />;
+  if (router.query.id === undefined) return null;
+
+  return <PodcastDetails podcastId={String(router.query.id)} />;
 };
 
 export default PodcastDetailPage;

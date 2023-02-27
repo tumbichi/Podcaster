@@ -1,0 +1,12 @@
+.container {
+  padding: 1.5rem 1rem;
+}
+
+.title {
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.title:hover {
+  text-decoration: underline;
+}

@@ -5,15 +5,17 @@ import PodcastsListLayout from "../layouts/PodcastsList/PodcastsList";
 import FiltersLayout from "../layouts/FilterLayout/FiltersLayout";
 import { PodcastCard } from "../components";
 
-import useTopPodcasts from "../repositories/TopPodcastsRepository/hooks/useTopPodcasts";
+import useTopPodcasts from "../repositories/PodcastsRepository/hooks/useTopPodcasts";
 
 import useSearchFilter from "../hooks/useSearchFilter";
-import Podcast from "../repositories/TopPodcastsRepository/types/Podcast";
-import { useRouter } from "next/router";
+import Podcast from "../repositories/PodcastsRepository/types/Podcast";
 
-const TopPodcasts = () => {
-  const router = useRouter();
-  const { podcasts, error, isLoading } = useTopPodcasts();
+interface TopPodcastsProps {
+  navigateToPodcastDetails: (podcastId: string) => void;
+}
+
+const TopPodcasts = ({ navigateToPodcastDetails }: TopPodcastsProps) => {
+  const { podcasts } = useTopPodcasts();
   const { filteredPodcasts, onChangeQuery } = useSearchFilter(podcasts);
 
   const handleSearch = (newQuery: string) => {
@@ -21,19 +23,8 @@ const TopPodcasts = () => {
   };
 
   const handleClickPodcastCard = useCallback(
-    (podcast: Podcast) => {
-      router.push(
-        {
-          pathname: "/podcast/[id]",
-          query: {
-            podcastId: podcast.id.attributes["im:id"],
-          },
-        },
-        `/podcast/${podcast.id.attributes["im:id"]}`,
-        { shallow: true }
-      );
-    },
-    [router]
+    (podcast: Podcast) => navigateToPodcastDetails(podcast.id.attributes["im:id"]),
+    [navigateToPodcastDetails]
   );
 
   return (

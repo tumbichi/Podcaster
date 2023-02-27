@@ -1,20 +1,27 @@
-import React from "react";
+import React, { DetailedHTMLProps, HTMLAttributes } from "react";
 import Image from "next/image";
 
 import styles from "./PodcastCardDetailed.module.css";
 
 import Card from "@/Core/components/Card/Card";
 
-interface PodcastCardDetailedProps {
+interface PodcastCardDetailedProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   description: string;
   title: string;
   author: string;
   imageUrl: string;
 }
 
-const PodcastCardDetailed = ({ description, title, author, imageUrl }: PodcastCardDetailedProps) => {
+const PodcastCardDetailed = ({
+  description,
+  title,
+  author,
+  imageUrl,
+  className,
+  ...divProps
+}: PodcastCardDetailedProps) => {
   return (
-    <Card className={styles.container}>
+    <Card className={`${styles.container} ${className}`} {...divProps}>
       <div className={styles.imageWrapper}>
         <div className={styles.imageContainer}>
           <Image className={styles.image} src={imageUrl} alt="Podcast image" fill sizes="100%" />
@@ -28,7 +35,7 @@ const PodcastCardDetailed = ({ description, title, author, imageUrl }: PodcastCa
       <hr />
       <div className={styles.descriptionContainer}>
         <h5>Description: </h5>
-        <p className={styles.description}>{description}</p>
+        <div className={styles.description} dangerouslySetInnerHTML={{ __html: description }} />
       </div>
     </Card>
   );

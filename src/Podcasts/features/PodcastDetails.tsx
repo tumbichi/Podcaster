@@ -1,31 +1,51 @@
-import React from "react";
-import Image from "next/image";
-import { useRouter } from "next/router";
+import React, { useEffect, useMemo } from "react";
 
-import Card from "@/Core/components/Card/Card";
-import { PodcastCard } from "../components";
+import usePodcastById from "../repositories/PodcastsRepository/hooks/usePodcastById";
 
-import usePodcastById from "../repositories/TopPodcastsRepository/hooks/usePodcastById";
+import PodcastDetailLayout from "../layouts/PodcastDetailLayout/PodcastDetailLayout";
+
 import PodcastCardDetailed from "../components/PodcastCardDetailed/PodcastCardDetailed";
+import PodcastEpisodesCount from "../components/PodcastEpisodesCount/PodcastEpisodesCount";
+import EpisodesTable from "../components/EpisodesTable/EpisodesTable";
+import formatDuration from "../formatters/formatDuration";
 
-const PodcastDetails = () => {
-  const router = useRouter();
-  const { podcast } = usePodcastById(String(router.query.id));
+interface PodcastDetailsProps {
+  podcastId: string;
+}
 
-  if (!podcast) return;
+const PodcastDetails = ({ podcastId }: PodcastDetailsProps) => {
+  const { podcast, isLoading } = usePodcastById(podcastId);
+
+  const episodes = useMemo(() => {
+    return !podcast
+      ? []
+      : podcast.channel.item.map((episode) => {
+          return {
+            title: episode.title[0],
+            date: new Date(episode.pubDate[0]).toLocaleDateString("es-ES"),
+            duration: episode["itunes:duration"] ? formatDuration(episode["itunes:duration"][0]) : "(empty)",
+            onClick: () => alert(`${episode.title[0]} was clicked`),
+          };
+        });
+  }, [podcast]);
+
+  if (!podcast) return null;
 
   return (
-    <div>
- 
-      <div style={{ display: "flex" }}>
-        <PodcastCardDetailed
-          description={podcast.summary.label}
-          title={podcast["im:name"].label}
-          author={podcast["im:artist"].label}
-          imageUrl={podcast["im:image"][2].label}
-        />
-      </div>
-    </div>
+    <PodcastDetailLayout isLoading={isLoading}>
+      {{
+        aside: (
+          <PodcastCardDetailed
+            description={podcast.channel.description[0]}
+            title={podcast.collectionName}
+            author={podcast.artistName}
+            imageUrl={podcast.artworkUrl600}
+          />
+        ),
+        header: <PodcastEpisodesCount count={podcast.trackCount} />,
+        content: <EpisodesTable episodes={episodes} />,
+      }}
+    </PodcastDetailLayout>
   );
 };
 

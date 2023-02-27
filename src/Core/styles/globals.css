@@ -1,12 +1,13 @@
 :root {
   --max-width: 1100px;
   --border-radius-xs: 0.25rem;
-  --border-radius-md: 0.50rem;
+  --border-radius-md: 0.5rem;
   --border-color: #dddddd;
   --color: #2e2e2e;
   --background: #ffffff;
+  --table-background: #f9f9f9;
   --accent: #487eaa;
-  --placeholder: #9A9A9A;
+  --placeholder: #9a9a9a;
   --shadow: -4px 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
@@ -42,4 +43,23 @@ hr {
   height: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  text-align: left;
+  padding: 0.625rem;
+}
+
+tr {
+  border-bottom: 2px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+  background-color: var(--table-background);
 }

@@ -1,5 +1,7 @@
 This is Podcaster is deployed on  https://podcaster-blond.vercel.app/
 
+For access without CORS error should be enter to this link before to access https://cors-anywhere.herokuapp.com/
+
 ## Getting Started
 
 First, run the development server:

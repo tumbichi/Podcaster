@@ -1,0 +1,28 @@
+.container {
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.title {
+  margin-bottom: 0.875rem;
+}
+
+.description {
+  font-size: 0.875rem;
+  font-style: italic;
+  font-weight: 400;
+  margin-top: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.description a {
+  color: var(--accent);
+}
+
+.player {
+  width: 100%;
+}

@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
+import Head from "next/head";
 
 import usePodcastById from "../repositories/PodcastsRepository/hooks/usePodcastById";
 
@@ -11,9 +12,10 @@ import formatDuration from "../formatters/formatDuration";
 
 interface PodcastDetailsProps {
   podcastId: string;
+  navigateToEpisodeDetails: (episodeId: string) => void;
 }
 
-const PodcastDetails = ({ podcastId }: PodcastDetailsProps) => {
+const PodcastDetails = ({ podcastId, navigateToEpisodeDetails }: PodcastDetailsProps) => {
   const { podcast, isLoading } = usePodcastById(podcastId);
 
   const episodes = useMemo(() => {
@@ -24,28 +26,40 @@ const PodcastDetails = ({ podcastId }: PodcastDetailsProps) => {
             title: episode.title[0],
             date: new Date(episode.pubDate[0]).toLocaleDateString("es-ES"),
             duration: episode["itunes:duration"] ? formatDuration(episode["itunes:duration"][0]) : "(empty)",
-            onClick: () => alert(`${episode.title[0]} was clicked`),
+            onClick: () => {
+              const guid = typeof episode.guid[0] === "object" ? episode.guid[0]._ : episode.guid[0];
+
+              navigateToEpisodeDetails(guid);
+            },
           };
         });
-  }, [podcast]);
+  }, [navigateToEpisodeDetails, podcast]);
 
   if (!podcast) return null;
 
   return (
-    <PodcastDetailLayout isLoading={isLoading}>
-      {{
-        aside: (
-          <PodcastCardDetailed
-            description={podcast.channel.description[0]}
-            title={podcast.collectionName}
-            author={podcast.artistName}
-            imageUrl={podcast.artworkUrl600}
-          />
-        ),
-        header: <PodcastEpisodesCount count={podcast.trackCount} />,
-        content: <EpisodesTable episodes={episodes} />,
-      }}
-    </PodcastDetailLayout>
+    <>
+      <Head>
+        <title>{podcast.collectionName} - Podcaster </title>
+        <meta name="description" content="podcasts player" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <PodcastDetailLayout isLoading={isLoading}>
+        {{
+          aside: (
+            <PodcastCardDetailed
+              description={podcast.channel.description[0]}
+              title={podcast.collectionName}
+              author={podcast.artistName}
+              imageUrl={podcast.artworkUrl600}
+            />
+          ),
+          header: <PodcastEpisodesCount count={podcast.trackCount} />,
+          content: <EpisodesTable episodes={episodes} />,
+        }}
+      </PodcastDetailLayout>
+    </>
   );
 };
 

@@ -10,7 +10,7 @@ export default function Home() {
     (podcastId: string) => {
       router.push(
         {
-          pathname: "/podcast/[id]",
+          pathname: "/podcast/[podcastId]",
           query: {
             podcastId,
           },

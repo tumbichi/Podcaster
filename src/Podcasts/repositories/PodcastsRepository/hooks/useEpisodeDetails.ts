@@ -1,7 +1,8 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import usePodcastById from "./usePodcastById";
 import PodcastDetailedWithChannel from "../types/PodcastDetailedWithChannel";
 import { Item } from "../types/FeedPodcastParsed";
+import useLoadingMethods from "@/Core/contexts/LoadingContext/hooks/useLoadingMethods";
 
 interface UseEpisodeDetailsReturn {
   isLoading: boolean;
@@ -10,6 +11,7 @@ interface UseEpisodeDetailsReturn {
 }
 
 const useEpisodeDetails = (podcastId: string, episodeId: string): UseEpisodeDetailsReturn => {
+  const { showLoading, hideLoading } = useLoadingMethods();
   const { podcast, isLoading } = usePodcastById(podcastId);
   const episode = useMemo(() => {
     return podcast?.channel.item.find((episode) => {
@@ -20,6 +22,14 @@ const useEpisodeDetails = (podcastId: string, episodeId: string): UseEpisodeDeta
       }
     });
   }, [episodeId, podcast?.channel.item]);
+
+  useEffect(() => {
+    if (isLoading) {
+      showLoading();
+    } else {
+      hideLoading();
+    }
+  }, [hideLoading, isLoading, showLoading]);
 
   return {
     isLoading,

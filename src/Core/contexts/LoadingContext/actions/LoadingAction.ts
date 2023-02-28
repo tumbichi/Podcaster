@@ -6,6 +6,6 @@ interface HideLoadingAction {
   type: "HIDE_LOADING_ACTION";
 }
 
-type LoadingActions = ShowLoadingAction | HideLoadingAction;
+type LoadingAction = ShowLoadingAction | HideLoadingAction;
 
-export default LoadingActions;
+export default LoadingAction;

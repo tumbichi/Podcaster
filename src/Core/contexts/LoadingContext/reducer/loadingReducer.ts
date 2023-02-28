@@ -1,4 +1,4 @@
-import LoadingActions from "../actions/loadingActions";
+import LoadingAction from "../actions/LoadingAction";
 
 interface LoadingState {
   loading: boolean;
@@ -8,7 +8,7 @@ export const initialState = {
   loading: false,
 };
 
-const loadingReducer = (state = initialState, action: LoadingActions): LoadingState => {
+const loadingReducer = (state = initialState, action: LoadingAction): LoadingState => {
   switch (action.type) {
     case "SHOW_LOADING_ACTION": {
       return {

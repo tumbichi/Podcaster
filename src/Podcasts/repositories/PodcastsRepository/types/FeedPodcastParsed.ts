@@ -37,7 +37,7 @@ export interface Channel {
 export interface Item {
   title: string[];
   description: string[];
-  guid: string[];
+  guid: GUIDElement[] | string[];
   pubDate: string[];
   link: string[];
   "itunes:explicit": ItunesExplicit[];
@@ -45,6 +45,15 @@ export interface Item {
   "dc:creator": ItunesAuthor[];
   "itunes:image": ItunesImageElement[];
   enclosure: EnclosureElement[];
+}
+
+export interface GUIDElement {
+  _: string;
+  $: GUIDElementConfig;
+}
+
+export interface GUIDElementConfig {
+  isPermaLink: string;
 }
 
 export enum ItunesAuthor {
